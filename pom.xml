@@ -26,18 +26,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
-                <!--<exclusion>
-                    <groupId>tomcat-embed-el</groupId>
-                    <artifactId>org.apache.tomcat.embed</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>tomcat-embed-core</groupId>
-                    <artifactId>org.apache.tomcat.embed</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>tomcat-embed-websocket</groupId>
-                    <artifactId>org.apache.tomcat.embed</artifactId>
-                </exclusion>-->
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -114,6 +102,11 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
             <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.30</version>
         </dependency>
 
 
