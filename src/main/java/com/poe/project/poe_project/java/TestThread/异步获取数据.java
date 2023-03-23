@@ -18,66 +18,57 @@ import java.util.stream.Collectors;
 public class 异步获取数据 {
 
     public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10000; i++) {
-            list.add(i+"");
+        long sum=0;
+        for (int j = 0; j < 4; j++) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < 10000; i++) {
+                list.add(i+"");
+            }
+            sum+=aync01(list);
+            //sum+=aync02(list);
         }
-        System.out.println("主线程日志打印1");
-        int i = aync01(list);
-        System.out.println(i);
-        aync02(list);
-        System.out.println("主线程日志打印2");
+        System.out.println(sum/4);
 
     }
 
 
-    public static int aync01(List<String> list){
+    public static long aync01(List<String> list) {
         long start = System.currentTimeMillis();
-        List<CompletableFuture> futures=new CopyOnWriteArrayList<>();
         List<String> result = new CopyOnWriteArrayList<>();
-        for (String s : list) {
-            CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
-                        List<Integer> list1 = Lists.newArrayList(1, 2, 3, 4);
-                        return list1.stream().map(m -> s + m).collect(Collectors.toList());
-                    }).thenAccept(result::addAll);
-            future.join();
-//                    futures.add(future);
-        }
-//        list.parallelStream().forEach(
-//                s->{
-//                    CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
-//                                List<Integer> list1 = Lists.newArrayList(1, 2, 3, 4);
-//                                return list1.stream().map(m -> s + m).collect(Collectors.toList());
-//                            },
-//                            ThreadPoolUtil.getCreateCiThreadPool()).thenAccept(result::addAll);
-//                    future.join();
-////                    futures.add(future);
-//                }
-//        );
-//        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        ThreadPoolExecutor threadPool = ThreadPoolUtil.getDeleteCiThreadPool();
+        list.parallelStream().forEach(
+                s -> CompletableFuture.supplyAsync(() -> {
+                    List<String> listAync = new ArrayList<>();
+                    for (int i = 0; i < 100; i++) {
+                        listAync.add(i+"");
+                    }
+                    return listAync;
+                },threadPool).thenAcceptAsync(result::addAll).join()
+        );
         long end = System.currentTimeMillis();
-        System.out.println("共执行 "+(end-start));
-        //System.out.println(result);
-        return 1;
+        System.out.println(end-start);
+        return end - start;
     }
 
     @SneakyThrows
-    public static void aync02(List<String> list){
+    public static long aync02(List<String> list){
         long start = System.currentTimeMillis();
         CountDownLatch countDownLatch = new CountDownLatch(list.size());
         List<String> result = new CopyOnWriteArrayList<>();
         ThreadPoolUtil.getAuditLogThreadPool().submit(() -> list.parallelStream().forEach(
                 ci -> {
-                    List<Integer> list1 = Lists.newArrayList(1, 2, 3, 4);
-                    result.addAll(list1.stream().map(m -> ci + m).collect(Collectors.toList()));
+                    List<String> listAync = new ArrayList<>();
+                    for (int i = 0; i < 100; i++) {
+                        listAync.add(i+"");
+                    }
+                    result.addAll(listAync);
                     countDownLatch.countDown();
                 }
         ));
         countDownLatch.await();
-        System.out.println(countDownLatch.getCount());
         long end = System.currentTimeMillis();
-        System.out.println("共执行 "+(end-start));
-        //System.out.println(result);
+        System.out.println(end-start);
+        return end-start;
     }
 
 
