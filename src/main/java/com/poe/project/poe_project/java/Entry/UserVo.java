@@ -10,9 +10,13 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class UserVo {
+public class UserVo implements  Cloneable {
     private String name;
     private String color;
     private String sex;
 
+    @Override
+    protected UserVo clone() throws CloneNotSupportedException {
+        return (UserVo)super.clone();
+    }
 }

@@ -74,6 +74,13 @@ public class TestList {
         System.out.println(CollectionUtils.isEqualCollection(list111,list222));
 
 
+        List<String> list01 = Lists.newArrayList("1", "2");
+        List<String> list02=new ArrayList<>(list01);
+        list01.add("3");
+        System.out.println(list01.toString());
+        System.out.println(list02.toString());
+
+
 
     }
 }
