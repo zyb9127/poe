@@ -1,14 +1,14 @@
 package com.poe.project.poe_project.java.TestThread;
 
-import com.google.common.collect.Lists;
 import com.poe.project.poe_project.utils.ThreadPoolUtil;
 import lombok.SneakyThrows;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author poe.zhang
@@ -55,7 +55,7 @@ public class 异步获取数据 {
         long start = System.currentTimeMillis();
         CountDownLatch countDownLatch = new CountDownLatch(list.size());
         List<String> result = new CopyOnWriteArrayList<>();
-        ThreadPoolUtil.getAuditLogThreadPool().submit(() -> list.parallelStream().forEach(
+        ThreadPoolUtil.getDeleteCiThreadPool().submit(() -> list.parallelStream().forEach(
                 ci -> {
                     List<String> listAync = new ArrayList<>();
                     for (int i = 0; i < 100; i++) {

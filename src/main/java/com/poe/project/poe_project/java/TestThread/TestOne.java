@@ -1,7 +1,6 @@
 package com.poe.project.poe_project.java.TestThread;
 
 import com.poe.project.poe_project.utils.ThreadPoolUtil;
-import org.assertj.core.util.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class TestOne {
 
     public static void main(String[] args) throws InterruptedException {
-        ThreadPoolExecutor ciTopologyRelationsThreadPool = ThreadPoolUtil.getCiTopologyRelationsThreadPool();
+        ThreadPoolExecutor ciTopologyRelationsThreadPool = ThreadPoolUtil.getDeleteCiThreadPool();
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
             list.add(i);

@@ -2,20 +2,13 @@ package com.poe.project.poe_project.java.cmdbTest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.poe.project.poe_project.java.Entry.PersonVo;
 import com.poe.project.poe_project.java.config.AttributeCheckErrorException;
 import com.poe.project.poe_project.java.constant.ModelConstant;
 import com.poe.project.poe_project.utils.JsonUtils;
-import com.poe.project.poe_project.utils.SpringContextUtil;
-import javafx.application.Application;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Lists;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
-import sun.misc.MessageUtils;
 
 import java.io.IOException;
 import java.util.*;
